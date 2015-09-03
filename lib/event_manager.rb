@@ -5,9 +5,10 @@ puts "EventManager Initialized!"
 # puts content
 
 # Instead of read or readlines we use CSV’s open method to load our file.
-contents = CSV.open "event_attendances.csv", headers: true
+# CSV library provides an additional option which allows us to convert the header names to symbols.
+contents = CSV.open "event_attendances.csv", headers: true, header_converters: :symbol
 contents.each do |row|
-	name = row[2]
+	name = row[:first_name]
 	puts name
 end
 # lines = File.readlines "event_attendances.csv"
