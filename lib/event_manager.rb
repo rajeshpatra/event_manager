@@ -9,7 +9,8 @@ puts "EventManager Initialized!"
 contents = CSV.open "event_attendances.csv", headers: true, header_converters: :symbol
 contents.each do |row|
 	name = row[:first_name]
-	puts name
+	zipcode = row[:zipcode]
+	puts "#{name} #{zipcode}"
 end
 # lines = File.readlines "event_attendances.csv"
 
