@@ -10,7 +10,7 @@ contents = CSV.open "event_attendances.csv", headers: true, header_converters: :
 contents.each do |row|
 	name = row[:first_name]
 	zipcode_string = row[:zipcode].to_s
-	zipcode = zipcode_string.rjust(5, '00000')
+	zipcode = zipcode_string.rjust(5, '00000')[0..4]
 	puts "#{name} #{zipcode}"
 end
 # lines = File.readlines "event_attendances.csv"
