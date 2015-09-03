@@ -1,4 +1,8 @@
 require "csv" #to load csv library in Ruby.
+require 'sunlight/congress' #uses sunlight-congress gem
+
+Sunlight::Congress.api_key = "e179a6973728c4dd3fb1204283aaccb5"
+
 puts "EventManager Initialized!"
 
 # content = File.read "event_attendances.csv"
@@ -6,12 +10,15 @@ puts "EventManager Initialized!"
 
 # Instead of read or readlines we use CSV’s open method to load our file.
 # CSV library provides an additional option which allows us to convert the header names to symbols.
-contents = CSV.open "event_attendances.csv", headers: true, header_converters: :symbol
+contents = CSV.open "event_attendees.csv", headers: true, header_converters: :symbol
 contents.each do |row|
 	name = row[:first_name]
 	zipcode_string = row[:zipcode].to_s
 	zipcode = zipcode_string.rjust(5, '00000')[0..4]
-	puts "#{name} #{zipcode}"
+
+	  legislators = Sunlight::Congress::Legislator.by_zipcode(zipcode)
+
+	puts "#{name} #{zipcode} #{legislators}"
 end
 # lines = File.readlines "event_attendances.csv"
 
